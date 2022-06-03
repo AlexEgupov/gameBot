@@ -9,14 +9,16 @@ function gameBot(counter) {
 
     function compare() {
         let userNumber = prompt('Угадай число от 1 до 100');
-        let repWin = {
+        let storageWin = {
             conditionn: userNumber == x,
             messagee: 'Поздравляю, Вы угадали!!! Хотели бы сыграть еще?'
         };
-        let repLose = {
+        let storageLose = {
             conditionn: counter == 0,
             messagee: 'Попытки закончились, хотите сыграть еще?'
         }
+
+        if (userNumber == null) { counter = 0; thx(); };
 
         function results(condition, message) {
 
@@ -47,8 +49,8 @@ function gameBot(counter) {
             return gameBot;
         };
 
-        results(repWin.conditionn, repWin.messagee);
-        results(repLose.conditionn, repLose.messagee);
+        results(storageWin.conditionn, storageWin.messagee);
+        results(storageLose.conditionn, storageLose.messagee);
     }
     compare();
 };
