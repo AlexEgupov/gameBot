@@ -35,8 +35,7 @@ function gameBot(counter) {
 
             if (condition === true && counter != 0) {
                 counter--;
-                confirm(message);
-                compare();
+                confirm(message) ? compare() : thx();
             }
         };
 
@@ -45,6 +44,7 @@ function gameBot(counter) {
         };
 
         function thx() {
+            counter = 0;
             alert('Спасибо за игру, до свидания :)');
             return gameBot;
         };
