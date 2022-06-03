@@ -6,35 +6,50 @@ const isNumber = function (num) {
 
 function gameBot(counter) {
     let x = Math.ceil(Math.random() * 100);
+
     function compare() {
         let userNumber = prompt('Угадай число от 1 до 100');
+        let repWin = {
+            conditionn: userNumber == x,
+            messagee: 'Поздравляю, Вы угадали!!! Хотели бы сыграть еще?'
+        };
+        let repLose = {
+            conditionn: counter == 0,
+            messagee: 'Попытки закончились, хотите сыграть еще?'
+        }
+
+        function results(condition, message) {
+
+            if (condition === true) {
+                playAgain(message);
+            } else {
+                numCheckout(!isNumber(userNumber), ('Введи число! Осталось попыток: ' + counter));
+                numCheckout((userNumber < x), ('Загаданное число больше. Осталось попыток: ' + counter));
+                numCheckout((userNumber > x), ('Загаданное число меньше. Осталось попыток: ' + counter));
+            }
+        };
 
         function numCheckout(condition, message) {
 
-            if (condition) {
+            if (condition === true && counter != 0) {
                 counter--;
                 confirm(message);
                 compare();
             }
         };
 
-        function results(condition, message1, message2) {
-
-            if (condition) {
-                confirm(message1);
-            } else if (message1) {
-                gameBot(9);
-            } else { confirm(message2) };
+        function playAgain(message) {
+            confirm(message) === true ? gameBot(9) : thx();
         };
 
-        if (userNumber == null) { confirm('Спасибо за игру, до свидания :)') };
-        numCheckout(!isNumber(userNumber), 'Введи число! Осталось попыток: ' + counter);
-        numCheckout(userNumber < x, 'Загаданное число больше. Осталось попыток: ' + counter);
-        numCheckout(userNumber > x, 'Загаданное число меньше. Осталось попыток: ' + counter);
-        results((userNumber == x), confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?'), 'Спасибо за игру, до свидания :)');
-        results(counter === 0, confirm('Попытки закончились, хотите сыграть еще?'), 'Спасибо за игру, до свидания :)');
-    }
+        function thx() {
+            alert('Спасибо за игру, до свидания :)');
+            return gameBot;
+        };
 
+        results(repWin.conditionn, repWin.messagee);
+        results(repLose.conditionn, repLose.messagee);
+    }
     compare();
 };
 
